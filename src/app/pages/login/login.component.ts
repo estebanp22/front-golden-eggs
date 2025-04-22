@@ -16,17 +16,18 @@ export class LoginComponent {
   loading = false;
   errorMessage = '';
 
-  // Asegúrate de que fb esté correctamente inyectado
-  loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-  });
+  loginForm: any;
 
   constructor(
-    private fb: FormBuilder,  // Se inyecta correctamente aquí
+    private fb: FormBuilder,
     private auth: AuthService,
     private router: Router
-  ) {}
+  ) {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   onSubmit(): void {
     if (this.loginForm.invalid) return;
@@ -40,7 +41,8 @@ export class LoginComponent {
 
     this.auth.login(credentials).subscribe({
       next: (res: LoginResponse) => {
-        this.auth.saveToken(res.token);
+        console.log('Token recibido:', res.accessToken);
+        this.auth.saveToken(res.accessToken);
         this.router.navigate(['/home']);
       },
       error: () => {
@@ -48,6 +50,7 @@ export class LoginComponent {
         this.loading = false;
       }
     });
+
   }
 
   get f() {
