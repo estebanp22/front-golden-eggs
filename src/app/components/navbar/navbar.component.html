@@ -1,1 +1,14 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <div class="navbar-container">
+    <a routerLink="/home" class="logo">
+      <img src="assets/logo.png" alt="logo">
+    </a>
+
+    <ul class="nav-links">
+      <li><a routerLink="/home" routerLinkActive="active">Inicio</a></li>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Productos</a></li>
+      <li><a routerLink="/perfil" routerLinkActive="active">Perfil</a></li>
+      <li><a (click)="abrirLogin()" class="login-link"><img src="assets/user.png"/></a></li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,68 @@
+.productos-container {
+  text-align: center;
+  padding: 1rem; /* Aumentar el padding para dar más espacio */
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Aumentar el tamaño mínimo */
+  gap: 2rem;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.producto-card {
+  background-color: #fffef8;
+  border: 1px solid #e2e2e2;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem; /* Aumentar el padding interno */
+  transition: transform 0.2s ease;
+  width: 100%; /* Asegurar que ocupe el 100% del espacio disponible */
+  max-width: 300px; /* Limitar el tamaño máximo de la tarjeta */
+  margin: 0 auto; /* Centrar la tarjeta si no llena el espacio */
+}
+
+.producto-card:hover {
+  transform: translateY(-10px); /* Hacer que el hover sea más pronunciado */
+}
+
+.producto-card img {
+  width: 100%;
+  height: 250px; /* Aumentar la altura de la imagen */
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.producto-card h3 {
+  margin: 1rem 0; /* Aumentar margen */
+  color: goldenrod;
+  font-size: 1.5rem; /* Aumentar el tamaño de la fuente */
+}
+
+.producto-card p {
+  color: #555;
+  font-size: 1rem; /* Aumentar el tamaño de la fuente */
+}
+
+.precio {
+  font-weight: bold;
+  color: #444;
+  margin: 1rem 0; /* Aumentar margen */
+  font-size: 1.1rem; /* Aumentar tamaño de la fuente */
+}
+
+.btn-comprar {
+  background-color: goldenrod;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem; /* Aumentar el tamaño del botón */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-comprar:hover {
+  background-color: #c9961a;
+}
