@@ -1,12 +1,23 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component'; // <-- importa tu login
 
 @Component({
+  standalone: true,
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent, LoginComponent], // <-- lo agregas aquí
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'front-golden-eggs';
+  showLogin = false;
+
+  openLoginModal() {
+    this.showLogin = true;
+  }
+
+  closeLoginModal() {
+    this.showLogin = false;
+  }
 }

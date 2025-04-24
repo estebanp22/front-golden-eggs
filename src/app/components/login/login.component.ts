@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
@@ -15,6 +15,8 @@ import { LoginResponse } from '../../core/auth.models';
 export class LoginComponent {
   loading = false;
   errorMessage = '';
+  @Input() show: boolean = false; // Controla la visibilidad del modal
+  @Output() close = new EventEmitter<void>();
 
   loginForm: any;
 
@@ -44,6 +46,7 @@ export class LoginComponent {
         console.log('Token recibido:', res.accessToken);
         this.auth.saveToken(res.accessToken);
         this.router.navigate(['/home']);
+        this.closeModal();
       },
       error: () => {
         this.errorMessage = 'Credenciales incorrectas.';
@@ -55,5 +58,10 @@ export class LoginComponent {
 
   get f() {
     return this.loginForm.controls;
+  }
+
+  closeModal() {
+    this.loginForm.reset();
+    this.close.emit(); // Emitir evento para cerrar el modal
   }
 }
