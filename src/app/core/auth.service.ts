@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LoginResponse } from './auth.models';
+import { environment} from '../../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private api = 'http://localhost:8080'; // Ajusta la URL según tu backend
+  private api = environment.apiUrl; // Ajusta la URL según tu backend
 
   constructor(private http: HttpClient) {}
 
@@ -71,4 +72,24 @@ export class AuthService {
     const headers = this.getAuthHeaders();
     return this.http.get<any>(`${this.api}/protected-resource`, { headers });
   }
+
+  //logOut
+  logoutBackend(): Observable<any>{
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.api}/api/auth/logout`, {}, { headers });
+  }
+
+  cerrarSesionCompleta(): void {
+    this.logoutBackend().subscribe({
+      next: () => {
+        this.logout(); // Esto borra el token local
+        // Puedes redirigir o emitir algún evento
+      },
+      error: err => {
+        console.error('Error cerrando sesión:', err);
+        this.logout(); // Incluso si falla, limpiar el token
+      }
+    });
+  }
+
 }

@@ -53,7 +53,6 @@ export class LoginComponent {
         this.loading = false;
       }
     });
-
   }
 
   get f() {
@@ -63,5 +62,14 @@ export class LoginComponent {
   closeModal() {
     this.loginForm.reset();
     this.close.emit(); // Emitir evento para cerrar el modal
+  }
+
+  get isLoggedIn(): boolean{
+    return this.auth.isLoggedIn();
+  }
+
+  logout(): void{
+    this.auth.cerrarSesionCompleta();
+    this.loading = false;
   }
 }
