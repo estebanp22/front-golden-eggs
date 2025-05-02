@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductosComponent } from '../../components/products/products.component'; // Verifica la ruta
+import { ProductosComponent } from '../../components/product/product.component'; // Verifica la ruta
 
 @Component({
   selector: 'app-home',
