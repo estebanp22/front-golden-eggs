@@ -4,6 +4,10 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 import { LoginResponse } from '../../core/auth.models';
+import {environment} from '../../../enviroments/enviroment.prod';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -13,6 +17,10 @@ import { LoginResponse } from '../../core/auth.models';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  private apiUrl = environment.apiUrl;
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.isAdminSubject.asObservable();
+
   loading = false;
   errorMessage = '';
   @Input() show: boolean = false; // Controla la visibilidad del modal
@@ -23,8 +31,10 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
-  ) {
+    private router: Router,
+    private http: HttpClient
+
+) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -47,6 +57,7 @@ export class LoginComponent {
         this.auth.saveToken(res.accessToken);
         this.router.navigate(['/home']);
         this.closeModal();
+        this.auth.displayAccordingRole(credentials.username);
       },
       error: () => {
         this.errorMessage = 'Credenciales incorrectas.';

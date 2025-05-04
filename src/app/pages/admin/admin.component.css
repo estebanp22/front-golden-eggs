@@ -1,0 +1,18 @@
+/* Asegura que el admin-container se mantenga entre navbar y footer */
+.admin-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 60px - 40px); /* Asume navbar 60px y footer 40px */
+  margin-top: 10px; /* Empuja debajo del navbar */
+  margin-bottom: 10px; /* Evita que se solape con el footer */
+  overflow: hidden;
+}
+
+/* El contenido principal se ajusta al lado derecho */
+.main-content {
+  margin-left: 250px; /* Igual al ancho de la sidebar */
+  flex-grow: 1;
+  padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+}

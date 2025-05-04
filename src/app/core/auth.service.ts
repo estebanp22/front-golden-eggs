@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { LoginResponse } from './auth.models';
 import { environment} from '../../enviroments/enviroment';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private api = environment.apiUrl; // Ajusta la URL según tu backend
+  private api = environment.apiUrl;
+  private isAdminSubject = new BehaviorSubject<boolean>(false);
+  isAdmin$ = this.isAdminSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { username: string; password: string }): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.api}/api/auth/login`, credentials);
@@ -29,6 +32,7 @@ export class AuthService {
   // Eliminar el token del localStorage (logout)
   logout(): void {
     localStorage.removeItem('token');
+    this.router.navigate(['/home']);
   }
 
   // Comprobar si el usuario está autenticado
@@ -48,6 +52,11 @@ export class AuthService {
       return null;
     }
   }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
 
   // Obtener el rol del usuario desde el token JWT
   getUserRole(): string | null {
@@ -83,6 +92,7 @@ export class AuthService {
     this.logoutBackend().subscribe({
       next: () => {
         this.logout(); // Esto borra el token local
+        this.isAdminSubject.next(false); // Emite un cambio de isAdmin a false
         // Puedes redirigir o emitir algún evento
       },
       error: err => {
@@ -91,5 +101,24 @@ export class AuthService {
       }
     });
   }
+
+  getUserData(username: string): Observable<any> {
+    return this.http.get<any>(`${this.api}/api/v1/user/getByUsername/${username}`);
+  }
+
+  displayAccordingRole(username: string): void {
+    this.getUserData(username).subscribe({
+      next: (response) => {
+        const isAdmin = response.roles.some((role: any) => role.name === 'ADMIN');
+        this.isAdminSubject.next(isAdmin);
+      },
+      error: (error) => {
+        console.error('Error al obtener el usuario:', error);
+        this.isAdminSubject.next(false);
+      }
+    });
+  }
+
+
 
 }

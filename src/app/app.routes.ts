@@ -4,10 +4,24 @@ import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { authGuard } from './guards/auth.guard';
 import {ProductsComponent} from './pages/products/products.component';
+import {AdminGuard} from './guards/admin.guard';
+import {UnauthorizedComponent} from './pages/unauthorized/unauthorized.component';
+import {DashboardComponent} from './pages/admin/components/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent},
-  { path: 'admin', component: AdminComponent},
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard], children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'productos', component: ProductsComponent },
+      // agrega aquí más hijos según tus componentes
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ]},
   { path: 'products', component: ProductsComponent},
-  { path: '**', redirectTo: 'home' }
+  { path: 'unauthorized', component: UnauthorizedComponent},
+  { path: '**', redirectTo: 'home' },
+
+
+
+
+
 ];
