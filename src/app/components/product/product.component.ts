@@ -1,26 +1,31 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ProductService, Product} from './services/product.service';
-import { HttpClientModule} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import { ProductService, Product } from './services/product.service';
+import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-product',
-  standalone: true,
-  imports: [CommonModule, HttpClientModule], // Necesario para usar *ngFor
   templateUrl: './product.component.html',
+  imports: [
+    NgForOf
+  ],
   styleUrls: ['./product.component.css']
 })
 
-export class ProductosComponent implements OnInit{  // Asegúrate de que la clase sea 'ProductosComponent'
-  products: Product[] = [];
-  @Input() product: any;
 
-  constructor(private productsService: ProductService) {
-  }
+export class ProductosComponent implements OnInit {
+  products: Product[] = [];
+
+  constructor(private productsService: ProductService) {}
+
   ngOnInit() {
     this.productsService.getProducts().subscribe({
-      next: (data) => this.products = data,
-      error: (err) =>console.error("Error al cargar los productos", err)
+      next: (data) => {
+        console.log("Datos recibidos:", data);
+        this.products = data;
+      },
+      error: (err) => console.error("Error al cargar los productos", err)
     })
   }
 }
+
+

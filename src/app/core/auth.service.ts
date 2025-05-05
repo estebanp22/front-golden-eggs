@@ -121,7 +121,7 @@ export class AuthService {
   }
 
   getUserData(username: string): Observable<any> {
-    return this.http.get<any>(`${this.api}/api/v1/user/getByUsername/${username}`);
+    return this.http.get<any>(`${this.api}/api/v1/users/getByUsername/${username}`);
   }
 
   displayAccordingRole(username: string): void {
