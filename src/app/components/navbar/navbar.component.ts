@@ -1,8 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NgIf } from '@angular/common';
-import {AuthService} from '../../core/auth.service';
-
+import { AuthService } from '../../core/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -12,17 +12,34 @@ import {AuthService} from '../../core/auth.service';
     RouterLinkActive,
     NgIf
   ],
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  standalone: true
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   showAdmin = false;
+  private adminSubscription!: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.authService.isAdmin$.subscribe((isAdmin) => {
+    // Suscribirse a los cambios de rol en tiempo real
+    this.adminSubscription = this.authService.isAdmin$.subscribe((isAdmin: boolean) => {
       this.showAdmin = isAdmin;
+      this.cdr.detectChanges(); // Forzar la actualización del DOM
     });
+
+    // También verificar al inicio por si ya hay sesión activa
+    const userRole = this.authService.getUserRoleFromToken();
+    this.showAdmin = userRole === 'ADMIN';
+  }
+
+  ngOnDestroy(): void {
+    if (this.adminSubscription) {
+      this.adminSubscription.unsubscribe();
+    }
   }
 
   @Output() openLogin = new EventEmitter<void>();

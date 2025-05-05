@@ -1,18 +1,96 @@
-/* Asegura que el admin-container se mantenga entre navbar y footer */
-.admin-container {
-  display: flex;
-  flex-direction: row;
-  height: calc(100vh - 60px - 40px); /* Asume navbar 60px y footer 40px */
-  margin-top: 10px; /* Empuja debajo del navbar */
-  margin-bottom: 10px; /* Evita que se solape con el footer */
-  overflow: hidden;
+:host {
+  display: block;
+  background: #f4f6f9;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* El contenido principal se ajusta al lado derecho */
-.main-content {
-  margin-left: 250px; /* Igual al ancho de la sidebar */
-  flex-grow: 1;
-  padding: 20px;
-  height: 100%;
-  overflow-y: auto;
+/* Títulos */
+.titulo, .subtitulo {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
 }
+
+/* Estadísticas (parte superior) */
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 220px;
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #555;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Módulos (estilo sencillo, centrado) */
+.modules-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.module-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  width: 150px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.module-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.module-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+

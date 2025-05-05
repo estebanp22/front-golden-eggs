@@ -53,6 +53,24 @@ export class AuthService {
     }
   }
 
+
+  // Obtener los datos del usuario del token JWT
+  getUserRoleFromToken(): string | null {
+    const token = this.getToken(); // Obtener el token desde localStorage
+    if (!token) return null;
+
+    try {
+      // Decodificar el payload del token JWT
+      const payload = token.split('.')[1];
+      const decoded = JSON.parse(atob(payload)); // Decodifica el payload
+      return decoded.role || null;
+    } catch (e) {
+      console.error('Error al decodificar el token:', e);
+      return null;
+    }
+  }
+
+
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
