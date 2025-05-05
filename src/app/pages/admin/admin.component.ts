@@ -12,16 +12,16 @@ import {AdminService} from './services/admin.service';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private router: Router, private visitService: AdminService) {}
+  constructor(private router: Router, private adminService: AdminService) {}
 
   stats = [
-    { label: 'Ingresos', value: '$122,000', icon: '💰', color: '#27ae60' },
-    { label: 'Egresos', value: '$50,000', icon: '📤', color: '#c0392b' },
-    { label: 'Ordenes', value: 92, icon: '🛒', color: '#2980b9' },
-    { label: 'Huevos en stock', value: 580, icon: '🥚', color: '#f39c12' },
-    { label: 'Clientes', value: 120, icon: '👥', color: '#8e44ad' },
-    { label: 'Empleados', value: 7, icon: '🧑‍🍳', color: '#16a085' },
-    { label: 'Visitas a la web', value: 0, icon: '🌐', color: '#34495e' }
+    { label: 'Ingresos', value: '$0', icon: '💰'},
+    { label: 'Egresos', value: '$0', icon: '📤'},
+    { label: 'Ordenes', value: 0, icon: '🛒'},
+    { label: 'Huevos en stock', value: 0, icon: '🥚'},
+    { label: 'Clientes', value: 0, icon: '👥'},
+    { label: 'Empleados', value: 0, icon: '🧑‍🍳'},
+    { label: 'Visitas a la web', value: 0, icon: '🌐'}
   ];
 
   areas = [
@@ -37,14 +37,55 @@ export class AdminComponent implements OnInit {
 
 
   ngOnInit(): void {
-    // Obtener el número de visitas y actualizar el campo correspondiente
-    this.visitService.getVisitCount().subscribe(count => {
+    // Visitas
+    this.adminService.getVisitCount().subscribe(count => {
       const visitasStat = this.stats.find(stat => stat.label === 'Visitas a la web');
       if (visitasStat) {
-        visitasStat.value = count;  // Actualiza el valor de visitas a la web
+        visitasStat.value = count;
+      }
+    });
+
+    // Ingresos
+    this.adminService.getTotalIncomeCurrentMonth().subscribe(count => {
+      const ingresosStat = this.stats.find(stat => stat.label === 'Ingresos');
+      if (ingresosStat) {
+        ingresosStat.value = `$${count.toLocaleString()}`;
+      }
+    });
+
+    // Órdenes
+    this.adminService.getTotalOrdersCurrentMonth().subscribe(count => {
+      const ordenesStat = this.stats.find(stat => stat.label === 'Ordenes');
+      if (ordenesStat) {
+        ordenesStat.value = count;
+      }
+    });
+
+    // Huevos en stock
+    this.adminService.getTotalEggsInStock().subscribe(count => {
+      const huevosStat = this.stats.find(stat => stat.label === 'Huevos en stock');
+      if (huevosStat) {
+        huevosStat.value = count;
+      }
+    });
+
+    // Clientes
+    this.adminService.getTotalClients().subscribe(count => {
+      const clientesStat = this.stats.find(stat => stat.label === 'Clientes');
+      if (clientesStat) {
+        clientesStat.value = count;
+      }
+    });
+
+    // Empleados
+    this.adminService.getTotalEmployees().subscribe(count => {
+      const empleadosStat = this.stats.find(stat => stat.label === 'Empleados');
+      if (empleadosStat) {
+        empleadosStat.value = count;
       }
     });
   }
+
 
   irARuta(ruta: string): void {
     this.router.navigate([ruta]);

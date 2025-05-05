@@ -4,9 +4,9 @@
   <div class="productos-grid">
     <div class="producto-card" *ngFor="let producto of products">
       <img [src]="producto.imagen" [alt]="producto.nombre" />
-      <h3>{{ producto.nombre }}</h3>
-      <p>{{ producto.descripcion }}</p>
-      <p class="precio">${{ producto.precio }}</p>
+      <h3>{{ 'Huevo ' + producto.type.type + ' ' + producto.color }}</h3>
+      <p>{{ 'Tipo: ' + producto.type.type + ', Color: ' + producto.color + ', Vence: ' + producto.expirationDate }}</p>
+      <p class="precio">${{ producto.salePrice }}</p>
       <button class="btn-comprar">Agregar</button>
     </div>
   </div>
