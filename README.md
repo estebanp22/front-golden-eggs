@@ -1,4 +1,4 @@
-## 🥚 Golden Eggs - Frontend
+## Golden Eggs - Frontend
 
 Welcome to the frontend of the **Golden Eggs** system a **web platform for managing an egg distribution company**.  
 This application is built with **Angular** and communicates with a **Spring Boot** backend using JWT authentication.
@@ -7,14 +7,14 @@ This application is built with **Angular** and communicates with a **Spring Boot
 
 ### 🚀 Technologies Used
 
-- ✅ **Angular CLI**: 19.2.8  
-- ✅ **Node.js**: 18.20.7  
-- ✅ **npm**: 10.8.2  
-- ✅ **TypeScript**  
-- ✅ **HTML / SCSS**  
-- ✅ **RxJS**  
-- ✅ **Bootstrap / Custom CSS**  
-- ✅ **Angular Router & HTTP Client**
+- **Angular CLI**: 19.2.8  
+- **Node.js**: 18.20.7  
+- **npm**: 10.8.2  
+- **TypeScript**  
+- **HTML / SCSS**  
+- **RxJS**  
+- **Bootstrap / Custom CSS**  
+- **Angular Router & HTTP Client**
 
 ---
 
@@ -105,10 +105,11 @@ Golden Eggs functions as an **ERP (Enterprise Resource Planning)** system tailor
 
 ---
 
-### 🔗 Project Repositories
+### 🔗 Backend
 
-- 📦 Backend (Spring Boot): [back-golden-eggs](https://github.com/estebanp22/back-golden-eggs)  
-- 🎨 Frontend (Angular): [front-golden-eggs](https://github.com/estebanp22/front-golden-eggs)
+This project works together with the backend repo built in Java:
+
+- 📦 **Backend repo** (Spring Boot): [back-golden-eggs](https://github.com/estebanp22/back-golden-eggs)  
 
 ---
 
