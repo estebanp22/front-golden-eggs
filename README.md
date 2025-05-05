@@ -1,59 +1,117 @@
-# FrontGoldenEggs
+## 🥚 Golden Eggs - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+Welcome to the frontend of the **Golden Eggs** system a **web platform for managing an egg distribution company**.  
+This application is built with **Angular** and communicates with a **Spring Boot** backend using JWT authentication.
 
-## Development server
+---
 
-To start a local development server, run:
+### 🚀 Technologies Used
 
-```bash
-ng serve
+- ✅ **Angular CLI**: 19.2.8  
+- ✅ **Node.js**: 18.20.7  
+- ✅ **npm**: 10.8.2  
+- ✅ **TypeScript**  
+- ✅ **HTML / SCSS**  
+- ✅ **RxJS**  
+- ✅ **Bootstrap / Custom CSS**  
+- ✅ **Angular Router & HTTP Client**
+
+---
+
+### 📁 Project Structure
+
+```
+front-golden-eggs/
+├── src/
+│   ├── app/
+│   │   ├── components/       # Reusable components
+│   │   ├── pages/            # Main feature pages
+│   │   ├── guards/           # Auth and role-based route guards
+│   │   ├── core/             # Authentication management
+│   │   └── app-routing.module.ts
+│
+├── assets/                   # Static resources
+├── environments/             # Environment config (dev/prod)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+### 🔧 Installation & Run
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/estebanp22/front-golden-eggs.git
+   cd front-golden-eggs
+   ```
 
-```bash
-ng generate component component-name
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. Check or update the backend URL in `src/environments/environment.prod.ts`:
+   ```ts
+   export const environment = {
+     production: true,
+     apiUrl: 'http://localhost:8008/api/v1'
+   };
+   ```
 
-```bash
-ng generate --help
-```
+4. Run the app:
+   ```bash
+   ng serve
+   ```
 
-## Building
+5. Open your browser at:
+   ```
+   http://localhost:4200
+   ```
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+### 📊 Main Features
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Golden Eggs functions as an **ERP (Enterprise Resource Planning)** system tailored for an egg distribution business. It centralizes and automates key operations such as sales, inventory, payments, and user management. Key features include:
 
-## Running unit tests
+- 🌐 **Public product catalog**: anyone can browse available egg products without logging in.
+- 🛒 **Order system**: authenticated clients can place orders for available products.
+- 🔐 **Authentication system**:
+  - Protected login with **JWT**.
+  - **Role-based access control**:
+    - `ADMIN`: full access to all system features (inventory, users, reports, payments, etc.).
+    - `EMPLOYEE`: limited operational access.
+    - `CLIENT`: can view products and place orders only.
+- 📊 **Admin dashboard** with real-time statistics:
+  - Monthly income
+  - Website visits
+  - Orders placed
+  - Eggs in stock
+  - Total clients and employees
+- 📦 **Comprehensive management** of:
+  - Eggs (stock and types)
+  - Payments and billing
+  - Suppliers
+  - Users, roles, and employees
+  - Reports and inventories
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+### 🔐 Security
 
-## Running end-to-end tests
+- **JWT-based authentication**.
+- Tokens are stored in `localStorage`.
+- An **HTTP interceptor** automatically attaches the token to every request.
+- Routes are protected using **guards** (`AuthGuard`, `RoleGuard`).
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+### 🔗 Project Repositories
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- 📦 Backend (Spring Boot): [back-golden-eggs](https://github.com/estebanp22/back-golden-eggs)  
+- 🎨 Frontend (Angular): [front-golden-eggs](https://github.com/estebanp22/front-golden-eggs)
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### 📃 License
+
+This project is licensed under the MIT License.
