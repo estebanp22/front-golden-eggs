@@ -35,17 +35,15 @@ export class ProductosComponent implements OnInit {
   agregarProducto(product: Product){
     if(!this.authService.isLoggedIn()) {
       this.openLogin.emit();
-      console.log("Entro");
       return;
     }
     const item: CartItem={
+      id: product.id,
       name: product.inventory.nameProduct,
       price: product.salePrice,
       quantity: 1
     };
-    console.log(item);
     this.cartService.addToCart(item);
-    console.log("Producto agregado", product);
   }
 }
 
