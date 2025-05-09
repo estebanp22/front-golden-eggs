@@ -1,7 +1,7 @@
 <div class="modal" *ngIf="show">
   <div class="modal-overlay" (click)="closeModal()"></div>
   <div class="modal-content">
-    <ng-container *ngIf="!isLoggedIn; else loggedInContent">
+    <ng-container *ngIf="!auth.isLoggedIn(); else loggedInContent">
       <h2>Iniciar Sesión</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="form-group">

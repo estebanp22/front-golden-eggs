@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../core/auth.service';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,8 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +47,13 @@ export class NavbarComponent implements OnInit {
 
   abrirLogin() {
     this.openLogin.emit();
+  }
+
+  openLoginCart(){
+    if(!this.authService.isLoggedIn()){
+      this.openLogin.emit();
+    }else{
+      this.router.navigate(['/cart']);
+    }
   }
 }
