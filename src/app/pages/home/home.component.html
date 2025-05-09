@@ -24,6 +24,8 @@
   <section class = "home-our-products">
     <h1>Nuestros productos</h1>
     <p>La clasificacion de nuestros huevos se dan segun el peso:</p>
-    <app-product></app-product>
+    <app-product (openLogin)="openLoginModal()"></app-product>
+
+    <app-login *ngIf="showLogin" [show]="showLogin" (close)="closeLoginModal()"></app-login>
   </section>
 </div>

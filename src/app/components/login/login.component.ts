@@ -30,7 +30,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router,
     private http: HttpClient
 
@@ -53,7 +53,6 @@ export class LoginComponent {
 
     this.auth.login(credentials).subscribe({
       next: (res: LoginResponse) => {
-        console.log('Token recibido:', res.accessToken);
         this.auth.saveToken(res.accessToken);
         this.router.navigate(['/home']);
         this.closeModal();
@@ -75,12 +74,9 @@ export class LoginComponent {
     this.close.emit(); // Emitir evento para cerrar el modal
   }
 
-  get isLoggedIn(): boolean{
-    return this.auth.isLoggedIn();
-  }
-
   logout(): void{
     this.auth.cerrarSesionCompleta();
+    this.closeModal();
     this.loading = false;
   }
 }

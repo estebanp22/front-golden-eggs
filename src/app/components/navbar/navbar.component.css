@@ -9,34 +9,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative; /* necesario para posicionamiento absoluto de login y cart */
 }
 
 .logo {
-  color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
   text-decoration: none;
   display: flex;
-  align-items: start; /* Alinea verticalmente el logo con el texto */
+  align-items: center;
 }
 
 .logo img {
-  height: 100px; /* Ajusta el tamaño del logo */
-  margin-right: 0.8rem; /* Espacio entre el logo y el texto */
+  height: 80px; /* tamaño reducido para mejor proporción */
+  margin-right: 0.8rem;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1rem;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-links li a {
   color: white;
   text-decoration: none;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 4px;
   transition: background 0.3s;
+  font-size: 1rem;
 }
 
 .nav-links li a:hover,
@@ -44,10 +46,29 @@
   background-color: #e1711f;
 }
 
-.login-link{
+.login-link,
+.cart-link {
   position: absolute;
-  right: 0;
-  margin-right: 40px;
-  margin-top: -15px;
-  align-content: center;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.4rem;
+  color: white;
+}
+
+.login-link {
+  right: 40px;
+}
+
+.cart-link {
+  right: 80px;
+}
+
+.login-link i,
+.cart-link i {
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .cart-item {
+    flex-direction: column;
+  }
 }
