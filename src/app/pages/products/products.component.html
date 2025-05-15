@@ -3,8 +3,9 @@
 
   <div>
     <div class="producto-card">
-      <app-product></app-product>
+      <app-product (openLogin)="openLoginModal()" ></app-product>
       <button>Ver más</button>
     </div>
+    <app-login *ngIf="showLogin" [show]="showLogin" (close)="closeLoginModal()"></app-login>
   </div>
 </div>

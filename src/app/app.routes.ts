@@ -7,6 +7,7 @@ import {ProductsComponent} from './pages/products/products.component';
 import {AdminGuard} from './guards/admin.guard';
 import {UnauthorizedComponent} from './pages/unauthorized/unauthorized.component';
 import {SalesComponent} from './pages/admin/components/sales/sales.component';
+import {CartComponent} from './pages/cart/cart.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
 
   { path: 'products', component: ProductsComponent},
   { path: 'unauthorized', component: UnauthorizedComponent},
-  { path: '**', redirectTo: 'home' },
+  { path: 'cart', component: CartComponent},
+  { path: '**', redirectTo: 'home' } // Siempre debe estar de ultimo
 ];
