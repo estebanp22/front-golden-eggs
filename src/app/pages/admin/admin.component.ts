@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import { NgForOf } from '@angular/common';
 import {AdminService} from './services/admin.service';
 
@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit {
 
   areas = [
     { nombre: 'Productos', ruta: '/admin/productos', icon: '📦' },
-    { nombre: 'Ventas', ruta: '/admin/ventas', icon: '🧾' },
+    { nombre: 'Ventas', ruta: '/admin/sales', icon: '🧾' },
     { nombre: 'Estadísticas', ruta: '/admin/estadisticas', icon: '📈' },
     { nombre: 'Inventarios', ruta: '/admin/inventarios', icon: '📋' },
     { nombre: 'Clientes', ruta: '/admin/clientes', icon: '👥' },
@@ -35,6 +35,9 @@ export class AdminComponent implements OnInit {
     { nombre: 'Configuración', ruta: '/admin/configuracion', icon: '⚙️' }
   ];
 
+  irARuta(ruta: string): void {
+    this.router.navigate([ruta]);
+  }
 
   ngOnInit(): void {
     // Visitas
@@ -84,10 +87,5 @@ export class AdminComponent implements OnInit {
         empleadosStat.value = count;
       }
     });
-  }
-
-
-  irARuta(ruta: string): void {
-    this.router.navigate([ruta]);
   }
 }
