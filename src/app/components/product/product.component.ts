@@ -24,7 +24,6 @@ export class ProductosComponent implements OnInit {
   ngOnInit() {
     this.productsService.getProducts().subscribe({
       next: (data) => {
-        console.log("Datos recibidos:", data);
         this.products = data;
       },
       error: (err) => console.error("Error al cargar los productos", err)

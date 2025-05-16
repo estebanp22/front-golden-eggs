@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit {
   ];
 
   areas = [
-    { nombre: 'Productos', ruta: '/admin/productos', icon: '📦' },
+    { nombre: 'Productos', ruta: '/admin/products-admin', icon: '📦' },
     { nombre: 'Ventas', ruta: '/admin/sales', icon: '🧾' },
     { nombre: 'Estadísticas', ruta: '/admin/estadisticas', icon: '📈' },
     { nombre: 'Inventarios', ruta: '/admin/inventarios', icon: '📋' },
