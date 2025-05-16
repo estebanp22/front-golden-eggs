@@ -11,13 +11,12 @@ import {CartComponent} from './pages/cart/cart.component';
 import {ProductsAdminComponent} from './pages/admin/components/products-admin/products-admin.component';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent},
-
-  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
+  { path: 'home', component: HomeComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
   { path: 'admin/sales', component: SalesComponent, canActivate: [AdminGuard] },
-  { path: 'admin/products-admin', component: ProductsAdminComponent, canActivate: [AdminGuard] },
-  { path: 'products', component: ProductsComponent},
-  { path: 'unauthorized', component: UnauthorizedComponent},
-  { path: 'cart', component: CartComponent},
+  { path: 'products', component: ProductsComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'cart', component: CartComponent },
+  {path: 'admin/clientes', loadComponent: () => import('./pages/admin/components/customers/customers.component').then(c => c.CustomersComponent)},
   { path: '**', redirectTo: 'home' } // Siempre debe estar de ultimo
 ];
