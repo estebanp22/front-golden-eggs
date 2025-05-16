@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomersService, Customer } from '../sales/services/customers.service';
 import {CurrencyPipe, NgFor, NgIf} from '@angular/common';
-import { FiltroClientesPipe } from './pipes/filtro-clientes.pipe';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, FiltroClientesPipe, CurrencyPipe],
+  imports: [NgFor, NgIf, FormsModule, CurrencyPipe],
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.css']
 })
@@ -106,10 +105,15 @@ export class CustomersComponent implements OnInit {
 
 
   deleteCustomer(id: number): void {
-    if(confirm('¿Estás seguro que quieres eliminar este cliente?')) {
+    if (confirm('¿Estás seguro que quieres eliminar este cliente?')) {
       this.customersService.deleteCustomer(id).subscribe({
-        next: () => this.customers = this.customers.filter(c => c.id !== id),
-        error: (error) => console.error('Error eliminando cliente:', error)
+        next: () => {
+          this.customers = this.customers.filter(c => c.id !== id);
+        },
+        error: (error) => {
+          console.error('Error eliminando cliente:', error);
+          alert('Ocurrió un error al eliminar el cliente.');
+        }
       });
     }
   }
