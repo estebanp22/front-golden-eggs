@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {Bill} from './sales.service';
 
 export interface Customer {
   id: number;
@@ -28,8 +29,8 @@ export class CustomersService {
   }
 
 
-  getPaysByCustomer(id: number): Observable<any[]> {
-    return this.http.get<any[]>(`/api/v1/pays/byCustomer/${id}`);
+  getPaysByCustomer(id: number): Observable<Bill[]> {
+    return this.http.get<Bill[]>(`/api/v1/bills/byCustomer/${id}`);
   }
 
 

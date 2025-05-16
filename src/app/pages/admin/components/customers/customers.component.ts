@@ -22,6 +22,8 @@ export class CustomersComponent implements OnInit {
   pays: any[] = [];
   allOrders: any[] = [];
   orderCount: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
 
 
@@ -51,7 +53,6 @@ export class CustomersComponent implements OnInit {
     this.clienteSeleccionado = customer;
     this.mostrarDetalle = true;
 
-    this.orders = this.allOrders.filter(order => order.customer_id === customer.id);
     this.customersService.getOrderCountByCustomer(customer.id).subscribe({
       next: (count) => {
         this.orderCount = count;
@@ -61,9 +62,39 @@ export class CustomersComponent implements OnInit {
         this.orderCount = 0;
       }
     });
+    this.customersService.getPaysByCustomer(customer.id).subscribe({
+      next: (bills) => {
+        this.pays = bills;
+      },
+      error: (err) => {
+        console.error('Error obteniendo pagos:', err);
+        this.pays = [];
+      }
+    });
+  }
+  get filteredCustomers(): Customer[] {
+    return this.customers.filter(c =>
+      c.username?.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      c.email?.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      c.address?.toLowerCase().includes(this.filtro.toLowerCase()) ||
+      c.phoneNumber?.toLowerCase().includes(this.filtro.toLowerCase())
+    );
   }
 
+  get paginatedCustomers(): Customer[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredCustomers.slice(start, start + this.itemsPerPage);
+  }
 
+  get totalPages(): number {
+    return Math.ceil(this.filteredCustomers.length / this.itemsPerPage);
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
 
 
   cerrarDetalle() {

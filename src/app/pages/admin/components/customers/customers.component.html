@@ -33,27 +33,34 @@
 
 
 
-      <!-- Sección: Pagos -->
+      <!-- Historial de pagos -->
       <section class="section">
-        <h4 class="section-title">💰 Historial de Pagos</h4>
+        <h4 class="section-title">💳 Historial de Pagos</h4>
         <table *ngIf="pays.length > 0" class="detail-table">
           <thead>
           <tr>
             <th>ID</th>
-            <th>Método</th>
-            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let pay of pays">
             <td>{{ pay.id }}</td>
-            <td>{{ pay.payment_method }}</td>
-            <td>{{ pay.amount_paid | currency:'COP' }}</td>
+            <td>{{ pay.issueDate }}</td>
+            <td>{{ pay.totalPrice | currency:'COP ' }}</td>
+            <td>
+          <span [class.paid]="pay.paid" [class.unpaid]="!pay.paid">
+            {{ pay.paid ? 'Pagado' : 'Pendiente' }}
+          </span>
+            </td>
           </tr>
           </tbody>
         </table>
         <div *ngIf="pays.length === 0" class="empty-message">Sin pagos registrados.</div>
       </section>
+
     </div>
   </div>
 
@@ -86,20 +93,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let customer of customers | filtroClientes:filtro">
+    <tr *ngFor="let customer of paginatedCustomers">
       <td>{{ customer.id }}</td>
       <td>{{ customer.username }}</td>
       <td>{{ customer.email }}</td>
       <td>{{ customer.address || '—' }}</td>
       <td>{{ customer.phoneNumber || '—' }}</td>
       <td class="acciones">
-        <button class="icon-button view" (click)="verDetalle(customer)" title="Ver detalle">
-          🔍
+        <button class="icon-action view" (click)="verDetalle(customer)" title="Ver detalle">
+          <span class="emoji">🔍</span>
         </button>
-        <button class="icon-button delete" (click)="deleteCustomer(customer.id)" title="Eliminar">
-          🗑️
+        <button class="icon-action delete" (click)="deleteCustomer(customer.id)" title="Eliminar">
+          <span class="emoji">🗑️</span>
         </button>
       </td>
+
     </tr>
     </tbody>
   </table>
@@ -108,4 +116,10 @@
   <div *ngIf="!loading && customers.length === 0" class="empty-message">
     No hay clientes registrados aún.
   </div>
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">« Anterior</button>
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Siguiente »</button>
+  </div>
+
 </div>
