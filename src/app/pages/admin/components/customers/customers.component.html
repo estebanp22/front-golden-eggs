@@ -1,0 +1,111 @@
+<div class="customers-container">
+  <!-- MODAL DETALLE PROFESIONAL -->
+  <div class="modal-backdrop" *ngIf="mostrarDetalle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>🧾 Detalles del Cliente</h3>
+        <button class="close-button" (click)="cerrarDetalle()">✖️</button>
+      </div>
+
+      <!-- Sección: Información del Usuario -->
+      <section class="section">
+        <h4 class="section-title">👤 Información del Usuario</h4>
+        <div class="info-grid">
+          <div><strong>Usuario:</strong> {{ clienteSeleccionado?.username }}</div>
+          <div><strong>Email:</strong> {{ clienteSeleccionado?.email }}</div>
+          <div><strong>Dirección:</strong> {{ clienteSeleccionado?.address }}</div>
+          <div><strong>Teléfono:</strong> {{ clienteSeleccionado?.phoneNumber }}</div>
+        </div>
+      </section>
+
+      <!-- Sección: Órdenes -->
+      <section class="section">
+        <h4 class="section-title">📦 Órdenes del Cliente</h4>
+
+        <!-- Mostrar recuento de órdenes si hay al menos una -->
+        <p *ngIf="orderCount > 0" class="order-count">
+          Total de órdenes realizadas: <strong>{{ orderCount }}</strong>
+        </p>
+
+        <!-- Mensaje si no hay ninguna orden -->
+        <p *ngIf="orderCount === 0" class="empty-message">Sin órdenes registradas.</p>
+      </section>
+
+
+
+      <!-- Sección: Pagos -->
+      <section class="section">
+        <h4 class="section-title">💰 Historial de Pagos</h4>
+        <table *ngIf="pays.length > 0" class="detail-table">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Método</th>
+            <th>Monto</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let pay of pays">
+            <td>{{ pay.id }}</td>
+            <td>{{ pay.payment_method }}</td>
+            <td>{{ pay.amount_paid | currency:'COP' }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="pays.length === 0" class="empty-message">Sin pagos registrados.</div>
+      </section>
+    </div>
+  </div>
+
+
+  <!-- ENCABEZADO -->
+  <div class="customers-header">
+    <h2 class="customers-title">👥 Usuarios Registrados</h2>
+    <input
+      type="text"
+      placeholder="🔍 Buscar..."
+      [(ngModel)]="filtro"
+      class="search-box"
+    />
+  </div>
+
+  <!-- MENSAJES -->
+  <div *ngIf="loading" class="loading-message">Cargando clientes...</div>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <!-- TABLA -->
+  <table *ngIf="!loading && customers.length > 0" class="customers-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Email</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th style="min-width: 80px;">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customers | filtroClientes:filtro">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.username }}</td>
+      <td>{{ customer.email }}</td>
+      <td>{{ customer.address || '—' }}</td>
+      <td>{{ customer.phoneNumber || '—' }}</td>
+      <td class="acciones">
+        <button class="icon-button view" (click)="verDetalle(customer)" title="Ver detalle">
+          🔍
+        </button>
+        <button class="icon-button delete" (click)="deleteCustomer(customer.id)" title="Eliminar">
+          🗑️
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- VACÍO -->
+  <div *ngIf="!loading && customers.length === 0" class="empty-message">
+    No hay clientes registrados aún.
+  </div>
+</div>
