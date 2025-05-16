@@ -3,11 +3,12 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { authGuard } from './guards/auth.guard';
-import { ProductsComponent } from './pages/products/products.component';
-import { AdminGuard } from './guards/admin.guard';
-import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
-import { SalesComponent } from './pages/admin/components/sales/sales.component';
-import { CartComponent } from './pages/cart/cart.component';
+import {ProductsComponent} from './pages/products/products.component';
+import {AdminGuard} from './guards/admin.guard';
+import {UnauthorizedComponent} from './pages/unauthorized/unauthorized.component';
+import {SalesComponent} from './pages/admin/components/sales/sales.component';
+import {CartComponent} from './pages/cart/cart.component';
+import {ProductsAdminComponent} from './pages/admin/components/products-admin/products-admin.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
