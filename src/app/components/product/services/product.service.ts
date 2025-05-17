@@ -23,7 +23,7 @@ export interface Product {
     entryDate: string;
     totalQuantity: number;
   };
-  quantity: number;
+  avibleQuantity: number;
   salePrice: number;
   supplier: {
     id: number;
