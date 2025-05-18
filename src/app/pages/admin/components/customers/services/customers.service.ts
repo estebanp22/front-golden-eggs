@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Bill } from './sales.service';
+import {Bill} from '../../sales/services/sales.service';
 
 export interface Customer {
   id: number;

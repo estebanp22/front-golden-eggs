@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomersService, Customer } from '../sales/services/customers.service';
 import {CurrencyPipe, NgFor, NgIf} from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {Customer, CustomersService} from './services/customers.service';
 
 @Component({
   selector: 'app-customers',
