@@ -25,11 +25,11 @@ export class AdminComponent implements OnInit {
   ];
 
   areas = [
-    { nombre: 'Productos', ruta: '/admin/products-admin', icon: '📦' },
+    { nombre: 'Productos', ruta: '/admin/products', icon: '📦' },
     { nombre: 'Ventas', ruta: '/admin/sales', icon: '🧾' },
     { nombre: 'Estadísticas', ruta: '/admin/statistics', icon: '📈' },
     { nombre: 'Inventarios', ruta: '/admin/inventarios', icon: '📋' },
-    { nombre: 'Clientes', ruta: '/admin/clientes', icon: '👥' },
+    { nombre: 'Clientes', ruta: '/admin/customers', icon: '👥' },
     { nombre: 'Recursos Humanos', ruta: '/admin/rrhh', icon: '🧑‍💼' },
     { nombre: 'Finanzas', ruta: '/admin/finanzas', icon: '💸' },
     { nombre: 'Configuración', ruta: '/admin/configuracion', icon: '⚙️' }
