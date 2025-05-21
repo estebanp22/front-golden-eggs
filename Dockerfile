@@ -7,4 +7,4 @@ RUN npm run build
 
 # production stage
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/front-golden-eggs /usr/share/nginx/html
