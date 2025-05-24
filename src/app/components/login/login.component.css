@@ -132,3 +132,24 @@
 .close-button:hover {
   color: #333;
 }
+
+.form-links {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #dc3545;
+  margin-top: 1rem;
+}

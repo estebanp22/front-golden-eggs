@@ -11,6 +11,7 @@ import {ProductsAdminComponent} from './pages/admin/components/products-admin/pr
 import {CustomersComponent} from './pages/admin/components/customers/customers.component';
 import {HumanResourcesComponent} from './pages/admin/components/human-resources/human-resources.component';
 import {ProfileComponent} from './pages/profile/profile.component';
+import {RegisterComponent} from './pages/register/register.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -24,5 +25,6 @@ export const routes: Routes = [
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'cart', component: CartComponent },
   { path: 'profile', component: ProfileComponent},
+  { path: 'register', component: RegisterComponent},
   { path: '**', redirectTo: 'home' } // Siempre debe estar de ultimo
 ];
