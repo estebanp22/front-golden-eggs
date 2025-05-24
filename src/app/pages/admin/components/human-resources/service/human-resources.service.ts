@@ -3,11 +3,6 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../../../../enviroments/enviroment.prod';
 import {HttpClient} from '@angular/common/http';
 
-export interface Role{
-  id?: number,
-  name: string
-}
-
 export interface User{
   username: string,
   password: string,

@@ -179,7 +179,6 @@ export class HumanResourcesComponent {
     if (form) form.resetForm();
   }
 
-
   resetUser() {
     return {
       username: "",
