@@ -9,6 +9,7 @@ import {CartComponent} from './pages/cart/cart.component';
 import {StatisticsComponent} from './pages/admin/components/statistics/statistics.component';
 import {ProductsAdminComponent} from './pages/admin/components/products-admin/products-admin.component';
 import {CustomersComponent} from './pages/admin/components/customers/customers.component';
+import {HumanResourcesComponent} from './pages/admin/components/human-resources/human-resources.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'admin/statistics', component: StatisticsComponent, canActivate: [AdminGuard] },
   { path: 'admin/products', component: ProductsAdminComponent, canActivate: [AdminGuard] },
   { path: 'admin/customers', component: CustomersComponent, canActivate: [AdminGuard] },
+  { path: 'admin/rrhh', component: HumanResourcesComponent, canActivate: [AdminGuard]},
   { path: 'products', component: ProductsComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'cart', component: CartComponent },
