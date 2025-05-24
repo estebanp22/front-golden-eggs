@@ -39,8 +39,6 @@ export interface Product {
   nombre: string;
 }
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -50,6 +48,6 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/eggs/getAll`);
+    return this.http.get<Product[]>(`${this.apiUrl}/eggs/getAllEggDto`);
   }
 }

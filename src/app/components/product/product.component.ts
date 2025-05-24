@@ -27,6 +27,7 @@ export class ProductosComponent implements OnInit {
     this.productsService.getProducts().subscribe({
       next: (data) => {
         this.products = this.limit ? data.slice(0, this.limit) : data;
+        console.log(this.products);
       },
       error: (err) => console.error("Error al cargar los productos", err)
     })
