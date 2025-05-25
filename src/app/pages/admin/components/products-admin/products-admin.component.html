@@ -23,7 +23,11 @@
 
     <div class="form-group">
       <label>Color:</label>
-      <input type="text" name="color" [(ngModel)]="product.color">
+      <select name="color" [(ngModel)]="product.color" class="form-control">
+        <option value="" disabled>Seleccione un color</option>
+        <option value="Blanco">Blanco</option>
+        <option value="Rojo">Rojo</option>
+      </select>
     </div>
 
     <div class="form-row">

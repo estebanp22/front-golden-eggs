@@ -1,79 +1,33 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AuthService } from '../../../core/auth.service';
+import {environment} from '../../../../enviroments/enviroment.prod';
+import {HttpClient} from '@angular/common/http';
 
 export interface CartItem {
   id: number;
   name: string;
   price: number;
   quantity: number;
+  color: string;
 }
 
+export interface Order{
+  idCustomer: number | null;
+  cartItem: CartItem[];
+  totalPrice: number;
+  orderDate: string;
+  state: string;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
-  cartItems$ = this.cartItemsSubject.asObservable();
-  private userId: number | null = null;
 
-  constructor(private auth: AuthService) {
-    try {
-      const user = this.auth.getUserFromToken();
-      this.userId = user?.id || null;
+  private apiUrl = environment.apiUrl;
 
-      const storageKey = this.getStorageKey();
-      const savedCart = storageKey ? localStorage.getItem(storageKey) : null;
+  constructor(private http: HttpClient) { }
 
-      if (savedCart) {
-        this.cartItemsSubject.next(JSON.parse(savedCart));
-      }
-    } catch (error) {
-      console.error('Error initializing cart', error);
-      this.userId = null;
-    }
+  saveOrder(order: Order){
+    return this.http.post<Order>(`${this.apiUrl}/orders/save`, order);
   }
 
-  private getStorageKey(): string | null {
-    return this.userId !== null ? `cart_${this.userId}` : 'cart_guest';
-  }
-
-  addToCart(item: CartItem): void {
-    const items = [...this.cartItemsSubject.value];
-    const existingItem = items.find(p => p.id === item.id);
-
-    if (existingItem) {
-      existingItem.quantity += item.quantity;
-    } else {
-      items.push(item);
-    }
-
-    this.cartItemsSubject.next(items);
-    const storageKey = this.getStorageKey();
-    if (storageKey) {
-      localStorage.setItem(storageKey, JSON.stringify(items));
-    }
-  }
-
-  getItems(): CartItem[] {
-    return this.cartItemsSubject.value;
-  }
-
-  removeItem(index: number): void {
-    const items = [...this.cartItemsSubject.value];
-    items.splice(index, 1);
-    this.cartItemsSubject.next(items);
-    const storageKey = this.getStorageKey();
-    if (storageKey) {
-      localStorage.setItem(storageKey, JSON.stringify(items));
-    }
-  }
-
-  clearCart(): void {
-    this.cartItemsSubject.next([]);
-    const storageKey = this.getStorageKey();
-    if (storageKey) {
-      localStorage.removeItem(storageKey);
-    }
-  }
 }
