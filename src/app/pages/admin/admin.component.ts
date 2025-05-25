@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
     { nombre: 'Inventarios', ruta: '/admin/inventarios', icon: '📋' },
     { nombre: 'Clientes', ruta: '/admin/customers', icon: '👥' },
     { nombre: 'Recursos Humanos', ruta: '/admin/rrhh', icon: '🧑‍💼' },
-    { nombre: 'Finanzas', ruta: '/admin/finanzas', icon: '💸' },
+    { nombre: 'Ordenes', ruta: '/admin/orders', icon: '📦' },
     { nombre: 'Configuración', ruta: '/admin/configuracion', icon: '⚙️' }
   ];
 
