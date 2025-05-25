@@ -12,6 +12,7 @@ import {CustomersComponent} from './pages/admin/components/customers/customers.c
 import {HumanResourcesComponent} from './pages/admin/components/human-resources/human-resources.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {RegisterComponent} from './pages/register/register.component';
+import {OrdersComponent} from './pages/admin/components/orders/orders.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'admin/products', component: ProductsAdminComponent, canActivate: [AdminGuard] },
   { path: 'admin/customers', component: CustomersComponent, canActivate: [AdminGuard] },
   { path: 'admin/rrhh', component: HumanResourcesComponent, canActivate: [AdminGuard]},
+  { path: 'admin/orders', component: OrdersComponent, canActivate: [AdminGuard]},
   { path: 'products', component: ProductsComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
   { path: 'cart', component: CartComponent },
