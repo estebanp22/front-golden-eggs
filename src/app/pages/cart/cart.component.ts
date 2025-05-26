@@ -1,14 +1,27 @@
-// cart.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {CartItem, CartService, Order} from './services/cart.service';
 import { AuthService } from '../../core/auth.service';
 import Swal from 'sweetalert2';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow, MatRowDef, MatTable, MatTableDataSource
+} from '@angular/material/table';
+import {MatIconButton} from '@angular/material/button';
+import {MatTooltip} from '@angular/material/tooltip';
+import {MatIcon} from '@angular/material/icon';
+import {MatDialog} from '@angular/material/dialog';
+import {ModalViewOrderComponent} from './modal-view-order/modal-view-order.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCell, MatCellDef, MatColumnDef, MatHeaderCell, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable, MatHeaderCellDef, MatIcon, MatIconButton, MatTooltip],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
@@ -16,8 +29,10 @@ export class CartComponent {
   cartItems: CartItem[] = [];
   private userId: number | null = null;
   order: Order = this.resetOrder();
+  displayedColumns: string[] = ['date', 'customerName', 'status', 'total', 'actions'];
+  dataSource = new MatTableDataSource<Order>();
 
-  constructor(public auth: AuthService, private cartService: CartService) {
+  constructor(public auth: AuthService, private cartService: CartService, private dialog: MatDialog) {
     try {
       const user = this.auth.getUserFromToken();
       this.auth.getUserData(user.sub).subscribe(data => {
@@ -29,6 +44,7 @@ export class CartComponent {
         if (savedCart) {
           this.cartItems = JSON.parse(savedCart);
         }
+        this.loadOrders();
       });
     } catch (error) {
       console.error('Error initializing cart', error);
@@ -36,9 +52,14 @@ export class CartComponent {
     }
   }
 
+  loadOrders() {
+    this.cartService.getOrdersByUser(this.userId).subscribe(data => {
+      this.dataSource.data = data;
+
+    });
+  }
 
   save(){
-
     const storageKey = this.getStorageKey();
     const savedCart = storageKey ? localStorage.getItem(storageKey) : null;
 
@@ -48,8 +69,8 @@ export class CartComponent {
       console.log(this.order);
       this.cartService.saveOrder(this.order).subscribe({
         next: () => {
-          Swal.fire('¡Éxito!', 'Producto guardado correctamente.', 'success');
-          this.resetOrder();
+          this.clearCart();
+          Swal.fire('¡Éxito!', 'Orden generada correctamente.', 'success');
         },
         error: (error) => {
           this.handleError(error, 'guardar');
@@ -59,7 +80,7 @@ export class CartComponent {
   }
 
   private handleError(error: any, action: string): void {
-    const mensaje = error?.error?.message || `Ocurrió un error al ${action} el producto.`;
+    const mensaje = error?.error?.message || `Ocurrió un error al ${action} la orden.`;
     Swal.fire('¡Error!', mensaje, 'error');
   }
 
@@ -81,6 +102,27 @@ export class CartComponent {
     if (storageKey) {
       localStorage.setItem(storageKey, JSON.stringify(this.cartItems));
     }
+  }
+
+  mostrarOrden(order: Order) {
+    const dialogRef = this.dialog.open(ModalViewOrderComponent, {
+      data: order,
+      width: '500px'
+    });
+  }
+  private clearCart(): void {
+    const storageKey = this.getStorageKey();
+
+    // Limpiar en memoria
+    this.cartItems = [];
+
+    // Limpiar localStorage
+    if (storageKey) {
+      localStorage.removeItem(storageKey);
+    }
+
+    // Resetear orden
+    this.order = this.resetOrder();
   }
 
   resetOrder() {

@@ -25,14 +25,13 @@ export class AdminComponent implements OnInit {
   ];
 
   areas = [
-    { nombre: 'Productos', ruta: '/admin/products', icon: '📦' },
-    { nombre: 'Ventas', ruta: '/admin/sales', icon: '🧾' },
+    { nombre: 'Productos', ruta: '/admin/products', icon: '🛍️' },
+    { nombre: 'Ventas', ruta: '/admin/sales', icon: '💲' },
     { nombre: 'Estadísticas', ruta: '/admin/statistics', icon: '📈' },
-    { nombre: 'Inventarios', ruta: '/admin/inventarios', icon: '📋' },
+    { nombre: 'Inventarios', ruta: '/admin/inventory', icon: '📋' },
     { nombre: 'Clientes', ruta: '/admin/customers', icon: '👥' },
     { nombre: 'Recursos Humanos', ruta: '/admin/rrhh', icon: '🧑‍💼' },
     { nombre: 'Ordenes', ruta: '/admin/orders', icon: '📦' },
-    { nombre: 'Configuración', ruta: '/admin/configuracion', icon: '⚙️' }
   ];
 
   irARuta(ruta: string): void {
@@ -53,6 +52,13 @@ export class AdminComponent implements OnInit {
       const ingresosStat = this.stats.find(stat => stat.label === 'Ingresos');
       if (ingresosStat) {
         ingresosStat.value = `$${count.toLocaleString()}`;
+      }
+    });
+    // Egresos
+    this.adminService.getTotalExpensesCurrentMonth().subscribe(count => {
+      const egresosStat = this.stats.find(stat => stat.label === 'Egresos');
+      if (egresosStat) {
+        egresosStat.value = `$${count.toLocaleString()}`;
       }
     });
 

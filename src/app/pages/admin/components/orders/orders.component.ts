@@ -61,7 +61,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 
   loadOrders() {
     this.ordersService.getAll().subscribe(data => {
-      console.log(data);
       this.dataSource.data = data.filter(order => order.status === 'PENDIENTE'); // solo pendientes
     });
   }
