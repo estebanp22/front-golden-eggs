@@ -30,4 +30,7 @@ export class CartService {
     return this.http.post<Order>(`${this.apiUrl}/orders/save`, order);
   }
 
+  getOrdersByUser(id:number | null){
+    return this.http.get<Order[]>(`${this.apiUrl}/orders/getOrdersCustomer/${id}`);
+  }
 }

@@ -37,4 +37,8 @@ export class AdminService {
   getTotalEmployees() {
     return this.http.get<number>(`${this.api}/users/count/employees`);
   }
+
+  getTotalExpensesCurrentMonth(){
+    return this.http.get<number>(`${this.api}/payments/totalExpensesCurrentMonth`)
+  }
 }

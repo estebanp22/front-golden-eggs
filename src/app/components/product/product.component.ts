@@ -26,10 +26,11 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit() {
     const user = this.authService.getUserFromToken();
-    this.authService.getUserData(user.sub).subscribe(data =>{
-      this.userId = data.id;
-    });
-
+    if(user != null) {
+      this.authService.getUserData(user.sub).subscribe(data => {
+        this.userId = data.id;
+      });
+    }
     this.productsService.getProducts().subscribe({
       next: (data) => {
         this.products = (this.limit ? data.slice(0, this.limit) : data).map(p=> ({
