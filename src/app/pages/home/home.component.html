@@ -8,8 +8,8 @@
 
 
   <div class="home-buttons">
-    <button class="btn-primary">Ver productos</button>
-    <button class="btn-secondary">Contáctanos</button>
+    <button class="btn btn-primary" [routerLink]="['/products']">Ver productos</button>
+    <button class="btn btn-secondary" (click)="goToWhatsapp()">Contáctanos</button>
   </div>
 
   <section class = "home-who-we-are">

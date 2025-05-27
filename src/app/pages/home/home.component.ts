@@ -16,11 +16,16 @@ export class HomeComponent {
   showLogin = false;
 
   openLoginModal(){
-    console.log("Mostrando el login");
+    //console.log("Mostrando el login");
     this.showLogin = true;
   }
 
   closeLoginModal(){
     this.showLogin = false;
   }
+
+  goToWhatsapp() {
+    window.open('https://wa.me/3128491964', '_blank');
+  }
+
 }

@@ -18,7 +18,7 @@ export class ProductsComponent {
   showLogin = false;
 
   openLoginModal(){
-    console.log("Mostrando el login");
+    //console.log("Mostrando el login");
     this.showLogin = true;
   }
 

@@ -1,38 +1,37 @@
-/* Estilos generales para el modal */
+/* Tipografía base y contenedor del modal */
 .modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1050; /* Asegura que el modal esté encima de otros elementos */
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 1050;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Capa de fondo que cubre toda la pantalla */
+/* Fondo oscuro */
 .modal-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
-/* Contenido del modal */
+/* Contenido con sombra y borde redondeado */
 .modal-content {
   background: linear-gradient(145deg, #ffffff, #f2f2f2);
-  padding: 2.5rem;
+  padding: 2.5rem 3rem; /* más espacio horizontal */
   border-radius: 20px;
   width: 400px;
+  max-width: 90vw;
   position: relative;
   z-index: 2;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal-content:hover {
@@ -43,36 +42,50 @@
 .modal-content h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #2c3e50;
-  font-size: 1.8rem;
+  color: #d9a900; /* amarillo para títulos */
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: 1.2px;
+}
+
+/* Formulario: full width con inputs centrados */
+.modal-content form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
 }
 
 .modal-content .form-group {
-  margin-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content label {
-  display: block;
-  margin-bottom: 0.4rem;
   font-weight: 600;
   color: #555;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
+/* Inputs con padding consistente, centrados */
 .modal-content input {
   width: 100%;
-  padding: 0.75rem;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1.5px solid #ccc;
   font-size: 1rem;
-  background-color: #fdfdfd;
-  transition: border-color 0.3s;
+  background-color: #fefefe;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 .modal-content input:focus {
-  border-color: #ff9900;
+  border-color: #d9a900;
   outline: none;
-  box-shadow: 0 0 4px rgba(255, 153, 0, 0.4);
+  box-shadow: 0 0 6px rgba(217, 169, 0, 0.6);
 }
 
 .modal-content input.invalid {
@@ -83,47 +96,70 @@
 .modal-content small {
   color: #e74c3c;
   font-size: 0.85rem;
+  margin-top: 0.25rem;
+  font-weight: 600;
 }
 
+/* Botones en full width con estilo definido */
 .modal-content button {
   width: 100%;
-  padding: 0.9rem;
-  background-color: #ff9900;
-  color: white;
+  padding: 0.9rem 0;
+  background-color: #d9a900;
+  color: #222;
   border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s ease-in-out;
+  transition: background-color 0.3s ease, transform 0.15s ease-in-out;
   margin-top: 1rem;
 }
 
-.modal-content button:hover {
-  background-color: #e88f00;
+.modal-content button:hover:not(:disabled) {
+  background-color: #b38f00;
   transform: translateY(-2px);
 }
 
 .modal-content button:disabled {
-  background-color: #ffa940a8;
+  background-color: #d9a900a8;
   cursor: not-allowed;
 }
 
+/* Mensaje de error centrado */
 .modal-content .error {
   margin-top: 1rem;
   color: #e74c3c;
   text-align: center;
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
-/* Botón de cierre del modal */
+/* Lista con link para registro */
+.modal-content .form-group li {
+  list-style: none;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+.modal-content .form-group li .link {
+  color: #d9a900;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.modal-content .form-group li .link:hover {
+  text-decoration: underline;
+}
+
+/* Botón cerrar (si decides agregar) */
 .close-button {
   position: absolute;
   top: 15px;
   right: 15px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   cursor: pointer;
   color: #777;
   transition: color 0.3s;
@@ -131,25 +167,4 @@
 
 .close-button:hover {
   color: #333;
-}
-
-.form-links {
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 0;
-}
-
-.link {
-  color: #007bff;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-.error {
-  color: #dc3545;
-  margin-top: 1rem;
 }

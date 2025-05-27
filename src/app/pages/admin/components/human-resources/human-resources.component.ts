@@ -11,6 +11,7 @@ import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-to
 
 @Component({
   selector: 'app-human-resources',
+  standalone: true,
   imports: [
     FormsModule,
     MatTableModule,
@@ -127,7 +128,7 @@ export class HumanResourcesComponent {
     });
     this.humanResourcesService.getDisabledEmployee().subscribe({
       next: (data) => {
-        console.log(data);
+        //console.log(data);
         this.users = data;
         this.calculateSummary();
         Swal.close();

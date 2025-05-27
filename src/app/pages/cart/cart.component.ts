@@ -66,7 +66,7 @@ export class CartComponent {
     if (savedCart) {
       this.cartItems = JSON.parse(savedCart);
       this.order = this.resetOrder();
-      console.log(this.order);
+      //console.log(this.order);
       this.cartService.saveOrder(this.order).subscribe({
         next: () => {
           this.clearCart();
