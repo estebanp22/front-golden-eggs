@@ -45,7 +45,7 @@ export class InventoryComponent implements OnInit {
   ngOnInit(): void {
     this.inventoryService.getMovements().subscribe(
       (data: Movement[]) => {
-        console.log(data);
+        //console.log(data);
         this.movements = data;
         this.calculateSummary(data);
       },

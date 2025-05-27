@@ -5,15 +5,32 @@ import {FormsModule} from '@angular/forms';
 import {NgIf} from '@angular/common';
 import {User} from './service/profile.service';
 import {AuthService} from '../../core/auth.service';
+import {MatInput} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
+import {animate, style, transition, trigger} from '@angular/animations';
+import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 
 @Component({
   selector: 'app-profile',
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    MatInput,
+    MatButton,
+    MatCardContent,
+    MatCardTitle,
+    MatCard
   ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrl: './profile.component.css',
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
 export class ProfileComponent {
   user: User = this.resetUser();
@@ -54,23 +71,22 @@ export class ProfileComponent {
 
   changePassword() {
     if (this.passwordData.newPassword !== this.passwordData.confirmPassword) {
-      alert("Las contraseñas no coinciden.");
+      Swal.fire('Error', 'Las contraseñas no coinciden.', 'error');
       return;
     }
 
     this.profileService.changePassword(this.user.id, this.passwordData.newPassword)
       .subscribe({
         next: updatedUser => {
-          alert('Contraseña actualizada correctamente');
+          Swal.fire('¡Éxito!', 'Contraseña actualizada correctamente', 'success');
           this.passwordData = { currentPassword: '', newPassword: '', confirmPassword: '' };
         },
         error: err => {
-          alert('Error al actualizar la contraseña');
+          Swal.fire('Error', 'Error al actualizar la contraseña', 'error');
           console.error(err);
         }
       });
   }
-
 
   resetUser() {
     return {
