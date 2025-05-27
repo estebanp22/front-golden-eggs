@@ -17,11 +17,14 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   showAdmin = false;
+  showEmployee = false;
   private adminSubscription!: Subscription;
+  private employeeSubscription!: Subscription;
 
   constructor(
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
+    private cdr1: ChangeDetectorRef,
     private router: Router
   ) {}
 
@@ -32,14 +35,23 @@ export class NavbarComponent implements OnInit {
       this.cdr.detectChanges(); // Forzar la actualización del DOM
     });
 
+    this.employeeSubscription = this.authService.isEmployee$.subscribe((isEmployee: boolean) => {
+      this.showEmployee = isEmployee;
+      this.cdr1.detectChanges(); // Forzar la actualización del DOM
+    });
+
     // También verificar al inicio por si ya hay sesión activa
     const userRole = this.authService.getUserRoleFromToken();
     this.showAdmin = userRole === 'ADMIN';
+    this.showEmployee = userRole === 'EMPLOYEE';
   }
 
   ngOnDestroy(): void {
     if (this.adminSubscription) {
       this.adminSubscription.unsubscribe();
+    }
+    if (this.employeeSubscription) {
+      this.employeeSubscription.unsubscribe();
     }
   }
 

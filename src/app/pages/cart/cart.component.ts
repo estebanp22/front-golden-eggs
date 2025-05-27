@@ -137,4 +137,20 @@ export class CartComponent {
       state: "PENDIENTE"
     };
   }
+
+  getStatusClass(status: string): string {
+    switch (status.toUpperCase()) {
+      case 'COMPLETADA':
+        return 'status-completada';
+      case 'INVENTORY':
+        return 'status-inventory';
+      case 'PENDIENTE':
+        return 'status-pendiente';
+      case 'CANCELADA':
+        return 'status-cancelada';
+      default:
+        return '';
+    }
+  }
+
 }

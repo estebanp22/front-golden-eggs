@@ -11,7 +11,9 @@ import {Router} from '@angular/router';
 export class AuthService {
   private api = environment.apiUrl;
   private isAdminSubject = new BehaviorSubject<boolean>(false);
+  private isEmployeeSubject = new BehaviorSubject<boolean>(false);
   isAdmin$ = this.isAdminSubject.asObservable();
+  isEmployee$ = this.isEmployeeSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -111,6 +113,7 @@ export class AuthService {
       next: () => {
         this.logout(); // Esto borra el token local
         this.isAdminSubject.next(false); // Emite un cambio de isAdmin a false
+        this.isEmployeeSubject.next(false); // Emite un cambio de isEmployee a false
         // Puedes redirigir o emitir algún evento
       },
       error: err => {
@@ -128,11 +131,14 @@ export class AuthService {
     this.getUserData(username).subscribe({
       next: (response) => {
         const isAdmin = response.roles.some((role: any) => role.name === 'ADMIN');
+        const isEmployee = response.roles.some((role: any) => role.name === 'EMPLOYEE');
         this.isAdminSubject.next(isAdmin);
+        this.isEmployeeSubject.next(isEmployee);
       },
       error: (error) => {
         console.error('Error al obtener el usuario:', error);
         this.isAdminSubject.next(false);
+        this.isEmployeeSubject.next(false);
       }
     });
   }
