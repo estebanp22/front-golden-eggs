@@ -121,3 +121,44 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+.purchase-history {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.full-width-table {
+  width: 100%;
+}
+
+.cart-title {
+  margin-bottom: 1rem;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.status-completada {
+  background-color: #28a745; /* Verde */
+}
+
+.status-inventory {
+  background-color: #007bff; /* Azul */
+}
+
+.status-pendiente {
+  background-color: #fd7e14; /* Naranja */
+}
+
+.status-cancelada {
+  background-color: #dc3545; /* Rojo */
+}
+
