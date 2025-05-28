@@ -28,10 +28,10 @@ export class SalesComponent {
 
   ngOnInit(): void {
     this.salesService.getBills().subscribe(data => {
-      this.bills = data;
+      this.bills = data.filter(bill => bill.orderState !== 'INVENTORY');
     });
 
-    this.salesService.getSalesTotal().subscribe(data => {
+  this.salesService.getSalesTotal().subscribe(data => {
       this.totalVentas = data;
     });
 
